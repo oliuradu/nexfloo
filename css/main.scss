@@ -15,19 +15,113 @@ $tablet: "only screen and (min-width: 481px) and (max-width: 767px)";
 $mobile: "only screen and (min-width: 320px) and (max-width: 480px)";
 $extrasmallscreen: "only screen and (max-width: 319px)";
 
-// DELETE FROM THIS
-body {
-    background: #000;
-    @media #{$smallLaptop}{
-        background: red;
+// Imports
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
+
+// CSS
+* {
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body,html {
+    background: #f2f2f2;
+    font-family: 'Nunito', sans-serif;
+
+}
+h1,h2,h3,h4,h5,h6 {
+    font-weight: 400;
+}
+.app {
+    // HEADER
+    header {
+        padding: 1em 2em;
+        background: $white;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        #logo {
+            float: left;
+            img {
+                width: 150px;
+            }
+        }
+        ul {
+            list-style-type: none;
+
+            li {
+                float: left;
+                padding: 0em 0em 0em 2em;
+                text-transform: uppercase;
+
+                a {
+                    color: $black;
+                }
+            }
+        }
     }
 
-    @media #{$tablet}{
-        background: green;
-    }
+    // CONTENT
 
-    @media #{$mobile}{
-        background: yellow;
+    .content {
+        display: flex;
+        height: calc(100vh - 4em - 9px);
+        .leftContent {
+            background: transparent;
+            width: 60%;
+            padding: 4em 2em;
+            font-size: 22px;
+            position: relative;
+
+            .playstop {
+                position: absolute;
+                background: $primary-color;
+                top: calc(50% - 2em);
+                height: 100px;
+                border-radius: 50%;
+                width: 100px;
+                left: calc(100% - 45px);
+                transition: 0.3s;
+                box-shadow: 0px 0px 51px -5px rgba(46,75,219,1);
+
+                &:hover {
+                    transform: scale(1.1);
+                    box-shadow: 0px 0px 51px -10px rgba(46,75,219,1);
+                }
+
+                img {
+                    width: 61px;
+                    position: relative;
+                    top: 20px;
+                    left: 25px;
+                }
+            }
+            h4 {
+                margin-top: 1em;
+            }
+        }
+
+
+        .rigthContent {
+            background:$black;
+            width: 40%;
+            padding: 2em;
+        }
+    }
+        // GENERAL
+    a {
+        text-decoration: none;
+    }
+    .call-to-action { 
+        background: $black;
+        color: #fff;
+        border:none;
+        padding: 1em 2em;
+        margin-top: 2em;
+        transition: 0.3s;
+        border-radius: 4px;
+        &:hover{
+            background: $primary-color;
+        }
     }
 }
-// UNTIL HERE
