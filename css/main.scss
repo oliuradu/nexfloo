@@ -1,3 +1,33 @@
+$primary-color: #2E4BDB;
+$primary-color-hover: #263EB4;
+$black: #1E1E24;
+$white: #fff;
+$gray: #898588;
+$gray-blue: #8F909D;
+$secondary-color: #F9E55B;
+$secondary-color-hover: #E3D153;
+
+// For use this ->  @media #{$bigscreen} { background : #000 }
+$bigscreen: "only screen and (min-width: 1281px)";
+$laptop: "only screen and (min-width: 1025px) and (max-width: 1280px)";
+$smallLaptop: "only screen and (min-width: 768px) and (max-width: 1024px)";
+$tablet: "only screen and (min-width: 481px) and (max-width: 767px)";
+$mobile: "only screen and (min-width: 320px) and (max-width: 480px)";
+$extrasmallscreen: "only screen and (max-width: 319px)";
+
+// DELETE FROM THIS
 body {
     background: #000;
+    @media #{$smallLaptop}{
+        background: red;
+    }
+
+    @media #{$tablet}{
+        background: green;
+    }
+
+    @media #{$mobile}{
+        background: yellow;
+    }
 }
+// UNTIL HERE
