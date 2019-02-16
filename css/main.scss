@@ -72,8 +72,21 @@ h1,h2,h3,h4,h5,h6 {
             padding: 4em 2em;
             font-size: 22px;
             position: relative;
-
+            
+            #timecontainer {
+                margin: 20px;
+                width: 200px;
+                height: 100px;
+                position: absolute;
+                transform: rotate(-90deg);
+                top: calc(50% - 2em - 18px);
+                left: calc(100% - 170px);
+                svg {
+                    width: 200px;
+                }
+              }
             .playstop {
+                z-index: 11;
                 position: absolute;
                 background: $primary-color;
                 top: calc(50% - 2em);
@@ -105,7 +118,10 @@ h1,h2,h3,h4,h5,h6 {
         .rigthContent {
             background:$black;
             width: 40%;
-            padding: 2em;
+
+            .settingsDiv {
+                padding: 2em;
+            }
         }
     }
         // GENERAL
@@ -125,3 +141,10 @@ h1,h2,h3,h4,h5,h6 {
         }
     }
 }
+
+.hide {
+    display:none;
+}
+
+
+

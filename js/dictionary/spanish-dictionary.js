@@ -1,8 +1,11 @@
 {
-    "Radu" : {
-        "question" : "SPanishH",
-        "answer" : "FRENCH",
-        "variante" : ["Php","Javascript","C++","Java"]
+    "dom" : {
+        "welcome" : "Bienvenido",
+        "settings" : "Configuracion"
+    },
+    "words" : {
+        "ar" : ["Zatar", "Tatar", "Molar","Telar","Far"],
+        "er" : ["Zater", "Tater", "Moler","Teler","Fer"]
     }
 
 }

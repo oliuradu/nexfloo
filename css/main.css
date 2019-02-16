@@ -66,7 +66,23 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
 }
 
+.app .content .leftContent #timecontainer {
+  margin: 20px;
+  width: 200px;
+  height: 100px;
+  position: absolute;
+  -webkit-transform: rotate(-90deg);
+          transform: rotate(-90deg);
+  top: calc(50% - 2em - 18px);
+  left: calc(100% - 170px);
+}
+
+.app .content .leftContent #timecontainer svg {
+  width: 200px;
+}
+
 .app .content .leftContent .playstop {
+  z-index: 11;
   position: absolute;
   background: #2E4BDB;
   top: calc(50% - 2em);
@@ -101,6 +117,9 @@ h1, h2, h3, h4, h5, h6 {
 .app .content .rigthContent {
   background: #1E1E24;
   width: 40%;
+}
+
+.app .content .rigthContent .settingsDiv {
   padding: 2em;
 }
 
@@ -121,5 +140,9 @@ h1, h2, h3, h4, h5, h6 {
 
 .app .call-to-action:hover {
   background: #2E4BDB;
+}
+
+.hide {
+  display: none;
 }
 /*# sourceMappingURL=main.css.map */
