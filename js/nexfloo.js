@@ -52,7 +52,8 @@ let vista = {
 // Controlador 
 let controlador = {
     app_in_pause : false,
-    seconds_until_next_round : 10;
+    seconds_until_next_round : 10,
+    
 
 
 }
