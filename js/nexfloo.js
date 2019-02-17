@@ -1,6 +1,5 @@
 // progressbar.js@1.0.0 version is used
 // Docs: http://progressbarjs.readthedocs.org/en/1.0.0/
-
 var bar = new ProgressBar.SemiCircle(timecontainer, {
     strokeWidth: 6,
     easing: 'easeInOut',
@@ -10,7 +9,7 @@ var bar = new ProgressBar.SemiCircle(timecontainer, {
     trailWidth: 1,
     svgStyle: null
   });
-  
+
   bar.animate(1.0);  // Number from 0.0 to 1.0
 
 // Library 
@@ -24,19 +23,13 @@ Array.prototype.random = function (n = 1) {
     n > this.length ? n = this.length : n = n;
     for(let i = 0; i < n; i++){
         let random_word = this[Math.floor((Math.random()*this.length))];
-        if(array_to_output.indexOf(random_word) == -1){
-            array_to_output.push(random_word);
-        }
-        else {
-            i--;
-        }
+        array_to_output.indexOf(random_word) == -1 ? array_to_output.push(random_word) : i--;
     }
     return array_to_output;
 }
 
 // MODEL
 let model = {
-
     words_already_showed : [],
 
     changeLenguage : (language) => {  
@@ -82,17 +75,20 @@ let vista = {
 
     //Doms in Right div
     DOM_settings_div : document.getElementById("settingsDiv"),
+    DOM_settings_helping_words_title : document.getElementById("numberOfWord"),
+    DOM_settings_slider_helping_words : document.getElementById("helping-words-slider"),
+    DOM_settings_slider_time_interval : document.getElementById("time-inverval-slider"),
 
     //Methods
     toggle_DOM_settings_div : function () {
         vista.DOM_settings_div.classList.contains("hide") ? vista.DOM_settings_div.classList.remove("hide") : vista.DOM_settings_div.classList.add("hide");
     },
-    toggle_playstop_button : function (status_wanted = "stop") {
-        if(status_wanted == "stop"){
+    toggle_playstop_button : function (status_wanted = "") {
+        if(status_wanted == "reset"){
             controlador.app_in_pause = true;
             vista.DOM_playstop_image.src = "./images/playbutton.svg";  
         }
-        else {
+        else if(status_wanted == "pause"){
             if(vista.DOM_playstop_image.src.indexOf("play") > -1){
                 vista.DOM_principal_word.innerHTML = controlador.words_to_show_list[0];
                 vista.DOM_helping_words_div.innerHTML = vista.show_helping_words()
@@ -101,10 +97,10 @@ let vista = {
             }
             else{
                 controlador.app_in_pause = true;
-                vista.DOM_playstop_image.src = "./images/playbutton.svg";  
-            }          
+                vista.DOM_playstop_image.src = "./images/playbutton.svg";
+                updateVista("pause");
+            }   
         }
-
     },
     show_helping_words : function () {
         let helpingwordsoutput = "";
@@ -112,48 +108,91 @@ let vista = {
         controlador.words_to_show_list.forEach((e,i) => {
             switch(true) {
                 case e.length > 12:
-                    backgroundcolor = "red";
+                    backgroundcolor = "#ec3232";
                     break;
                 case e.length > 8:
-                    backgroundcolor = "yellow";
+                    backgroundcolor = "#afb947";
                     break;
                 case e.length > 4:
-                    backgroundcolor = "green";
+                    backgroundcolor = "#548a43";
                     break;
                 default:
-                    backgroundcolor = "blue";
+                    backgroundcolor = "#2e4bdb";
               }
             if(i != 0){
-                let padding = e.length > 9 ? "4px" : "4px 8px";
+                let padding = e.length > 9 ? "2px" : "2px 7px";
                 helpingwordsoutput += `<span class="helping-word">${e}<span style="background :${backgroundcolor}; padding:${padding}" class="helplenght">${e.length}</span></span>`;
             }
         })
         return helpingwordsoutput;
+    },
+    refresh : function(){
+        controlador.words_to_show_list = controlador.generate_random_words_list();
+        vista.DOM_principal_word.innerHTML = controlador.words_to_show_list[0];
+        vista.DOM_helping_words_div.innerHTML = vista.show_helping_words();
+        //model.words_already_showed.push(controlador.words_to_show_list[0]);
     }
 
 }
 
-function updateVista() {
+function updateVista(status) {
     vista.DOM_settings_button.textContent = model.language.dom.settings;
     vista.DOM_principal_word.innerHTML = model.language.dom.welcome;
     vista.DOM_helping_words_div.innerHTML = model.language.dom.welcome_message;
+    vista.DOM_settings_helping_words_title.textContent = model.language.dom.number_of_helping_words;
+    if(status == "pause"){
+        vista.DOM_principal_word.innerHTML = "Pauza";
+        // De adaugat scris cand sunt in pauza
+    }
 }
-
 
 // Event listener 
 vista.DOM_settings_button.addEventListener("click", vista.toggle_DOM_settings_div);
-vista.DOM_playstop_button.addEventListener("click", vista.toggle_playstop_button);
+vista.DOM_playstop_button.addEventListener("click", ()=>{vista.toggle_playstop_button("pause")});
 vista.DOM_language_english_button.addEventListener("click", ()=> { model.changeLenguage("english")});
 vista.DOM_language_french_button.addEventListener("click", ()=> { model.changeLenguage("french")});
 vista.DOM_language_spanish_button.addEventListener("click", ()=> { model.changeLenguage("spanish")});
 vista.DOM_language_romanian_button.addEventListener("click", ()=> { model.changeLenguage("romanian")});
+vista.DOM_settings_slider_helping_words.addEventListener("change", ()=> { 
+    controlador.user_numberOfHelpingWord_setting = Number(vista.DOM_settings_slider_helping_words.value);
+    init();
+})
+vista.DOM_settings_slider_time_interval.addEventListener("change", ()=> { 
+    if(vista.DOM_settings_slider_time_interval.value == 0){
+        controlador.user_timeInterval_setting = 9999999999;
+    }
+    else{
+        controlador.user_timeInterval_setting = Number(vista.DOM_settings_slider_time_interval.value);
+    }
+    init();
+})
+
+document.onkeydown = function checkKey(e) {
+
+    e = e || window.event;
+    console.log(e.keyCode)
+    if (e.keyCode == '38') {
+        // up arrow
+        
+    }
+    else if (e.keyCode == '40') {
+        // down arrow
+    }
+    else if (e.keyCode == '37') {
+       // left arrow
+    }
+    else if (e.keyCode == '39') {
+       // right arrow
+    }
+
+}
 // Controlador 
 let controlador = {
     words_to_show_list : [],
     app_in_pause : true,
     // MODIFICA AICI 2-urile
-    user_timeInterval_setting : 2,
-    user_numberOfHelpingWord_setting : 9,
+    user_timeInterval_setting : 10,
+    user_numberOfHelpingWord_setting : 5,
     generate_random_words_list : function () {
         return model.language.words.randomKey().random(controlador.user_numberOfHelpingWord_setting + 1);
     }
@@ -169,7 +208,7 @@ function init(){
     bar.animate(1);
     //Generate the first word list
     controlador.words_to_show_list = controlador.generate_random_words_list();
-    vista.toggle_playstop_button("stop");
+    vista.toggle_playstop_button("reset");
     updateVista();
 }
 
@@ -180,37 +219,27 @@ var progress_bar_timmer = controlador.user_timeInterval_setting;
 
 var clock = setInterval(() => {
     // ON PAUSE
-    if(controlador.app_in_pause){
-        // Setez lucrurile dom cum se afiseaza cand sunt in pauza
-
-    }
-    else{
+    if(!controlador.app_in_pause){
         second_Counter_1++;
         second_Counter_2++;
     }
-    
+
     //After user setted seconds
     if(second_Counter_2 / 10 == controlador.user_timeInterval_setting + 1){
         bar.animate(1);
         second_Counter_2 = 0;
         second_Counter_1 = 0;
-        controlador.words_to_show_list = controlador.generate_random_words_list();
-        vista.DOM_principal_word.innerHTML = controlador.words_to_show_list[0];
-        vista.DOM_helping_words_div.innerHTML = vista.show_helping_words();
+        vista.refresh();
     }
-    
     //After one second
     else if(second_Counter_1 / 10 == 1){
         second_Counter_1 = 0;
-        console.log(progress_bar_timmer)
         progress_bar_timmer--;
         bar.animate(progress_bar_timmer / controlador.user_timeInterval_setting);
-
     }
     // Reset the bar progress
-    if(progress_bar_timmer == 0){
-        progress_bar_timmer = controlador.user_timeInterval_setting;
-    }
+    progress_bar_timmer == 0 ? progress_bar_timmer = controlador.user_timeInterval_setting : "";
+
 }, 100);
 
 

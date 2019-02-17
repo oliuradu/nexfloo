@@ -47,7 +47,13 @@
             
             <div class="rigthContent">
                 <div id="settingsDiv">
-                    <h1>HOLAA</h1>
+
+                        <h2 id="numberOfWord">Number of words</h2><output id="helpingslider">5</output>
+                        <input class="slider" type="range" min="0" max="15" value="5" class="slider" onchange="helpingslider.value=value" id="helping-words-slider">
+
+                        <h2 id="timeInterval">Time interval (seconds)</h2><output id="timeslider">10</output>
+                        <input class="slider" type="range" min="0" max="60" value="10" class="slider" onchange="timeslider.value=value" id="time-inverval-slider">
+                    
                 </div>
             </div>
 
