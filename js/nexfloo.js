@@ -1,3 +1,17 @@
+//FLickr api (not mine )
+function GetFlickApi(image_keyword) {
+    var flickrAPI = "";
+    flickrAPI += "https://api.flickr.com/services/rest/?";
+    flickrAPI += "&method=flickr.photos.search";
+    flickrAPI += "&api_key=9012151640d5486e63780579ff3b9cae";
+    flickrAPI += "&tags=" + image_keyword;
+    flickrAPI += "&per_page=2";
+    flickrAPI += "&page=1";
+    flickrAPI += "&format=json";
+    flickrAPI += "&nojsoncallback=1";
+    return flickrAPI;
+}
+
 // progressbar.js@1.0.0 version is used
 // Docs: http://progressbarjs.readthedocs.org/en/1.0.0/
 var bar = new ProgressBar.SemiCircle(timecontainer, {
@@ -74,6 +88,7 @@ let vista = {
     
 
     //Doms in Right div
+    DOM_right_div : document.querySelector(".rigthContent"),
     DOM_settings_div : document.getElementById("settingsDiv"),
     DOM_settings_helping_words_title : document.getElementById("numberOfWord"),
     DOM_settings_slider_helping_words : document.getElementById("helping-words-slider"),
@@ -90,6 +105,7 @@ let vista = {
         }
         else if(status_wanted == "pause"){
             if(vista.DOM_playstop_image.src.indexOf("play") > -1){
+                controlador.set_image_random();
                 vista.DOM_principal_word.innerHTML = controlador.words_to_show_list[0];
                 vista.DOM_helping_words_div.innerHTML = vista.show_helping_words()
                 controlador.app_in_pause = false;
@@ -130,6 +146,7 @@ let vista = {
         controlador.words_to_show_list = controlador.generate_random_words_list();
         vista.DOM_principal_word.innerHTML = controlador.words_to_show_list[0];
         vista.DOM_helping_words_div.innerHTML = vista.show_helping_words();
+        controlador.set_image_random();
         //model.words_already_showed.push(controlador.words_to_show_list[0]);
     }
 
@@ -195,6 +212,23 @@ let controlador = {
     user_numberOfHelpingWord_setting : 5,
     generate_random_words_list : function () {
         return model.language.words.randomKey().random(controlador.user_numberOfHelpingWord_setting + 1);
+    },
+
+    set_image_random : function () {
+            var xhr= new XMLHttpRequest();
+            xhr.open("GET",GetFlickApi(controlador.words_to_show_list[0]),true);   // 
+            xhr.send();
+            xhr.onreadystatechange=function(){
+                if(xhr.readyState==4 && xhr.status==200) {
+                    var myArray = JSON.parse(xhr.responseText);
+                    var n = Math.floor(Math.random() * myArray.photos.photo.length );
+                    var farm_id = myArray.photos.photo[n].farm
+                    var server_id = myArray.photos.photo[n].server
+                    var id = myArray.photos.photo[n].id
+                    var secret = myArray.photos.photo[n].secret
+                    vista.DOM_right_div.style.background = `#1E1E24 url("https://farm${farm_id}.staticflickr.com/${server_id}/${id}_${secret}.jpg")`;
+                } 
+            };
     }
 
 }

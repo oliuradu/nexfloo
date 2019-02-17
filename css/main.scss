@@ -176,6 +176,7 @@ h1,h2,h3,h4,h5,h6 {
             #settingsDiv {
                 background: $black;
                 padding: 2em;
+                height: calc(100vh - 4em - 9px);
 
                 h2{
                     color: #fff;

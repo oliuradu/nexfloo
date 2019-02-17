@@ -6,8 +6,8 @@
         "number_of_helping_words" : "Numero de palabras ayudantes"
     },
     "words" : {
-        "ar" : ["SpZatar", "SpTaadssadtar", "SpMsadsaddsaolar","SsasaddadasdsapTelar","Spar"],
-        "er" : ["SpZater", "SpTater", "SpMoler","SpTeler","SpFer"]
+        "ar" : ["Cantar", "Gozar", "Bailar","Cobrar","Saltar"],
+        "er" : ["Comer", "Tener", "Perder","Ser","Computer"]
     }
 
 }
