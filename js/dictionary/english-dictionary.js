@@ -1,11 +1,12 @@
 {
     "dom" : {
-        "welcome" : "Welcome",
-        "settings" : "Settings"
+        "welcome" : "Welcome to <b>Nexfloo</b>",
+        "settings" : "Settings",
+        "welcome_message" : "A fast, <b>powerfull and easy</b> to use web app. Made by Ifosup Students"
     },
     "words" : {
-        "ar" : ["Zatar", "Tatar", "Molar","Telar","Far"],
-        "er" : ["Zater", "Tater", "Moler","Teler","Fer"]
+        "ar" : ["ENZatar", "ENTatar", "ENMolar","ENTelar","ENFar"],
+        "er" : ["ENZater", "ENTater", "ENMoler","ENTeler","ENFer"]
     }
 
 }
