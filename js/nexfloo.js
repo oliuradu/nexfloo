@@ -5,7 +5,7 @@ function GetFlickApi(image_keyword) {
     flickrAPI += "&method=flickr.photos.search";
     flickrAPI += "&api_key=9012151640d5486e63780579ff3b9cae";
     flickrAPI += "&tags=" + image_keyword;
-    flickrAPI += "&per_page=2";
+    flickrAPI += "&per_page=3";
     flickrAPI += "&page=1";
     flickrAPI += "&format=json";
     flickrAPI += "&nojsoncallback=1";
@@ -61,6 +61,9 @@ let model = {
         else if(language == "french"){
             xhttp.open("GET", "./js/dictionary/french-dictionary.js", true);            
         }
+        else if(language == "romanian"){
+            xhttp.open("GET", "./js/dictionary/romanian-dictionary.js", true);            
+        }
         else {
             xhttp.open("GET", "./js/dictionary/english-dictionary.js", true); 
         }
@@ -74,6 +77,7 @@ model.changeLenguage("spanish");
 // Vista 
 let vista = {
     //Doms in Header
+    DOM_header : document.getElementById("header"),
     DOM_settings_button : document.getElementById("settings"),
 
     DOM_language_english_button : document.getElementById("english"),
@@ -85,7 +89,7 @@ let vista = {
     DOM_playstop_image : document.getElementById("playstopimage"),
     DOM_principal_word : document.getElementById("principal-word"),
     DOM_helping_words_div : document.getElementById("helping-words"),
-    
+    DOM_spell_letters_div : document.querySelector(".spell"),
 
     //Doms in Right div
     DOM_right_div : document.querySelector(".rigthContent"),
@@ -93,6 +97,7 @@ let vista = {
     DOM_settings_helping_words_title : document.getElementById("numberOfWord"),
     DOM_settings_slider_helping_words : document.getElementById("helping-words-slider"),
     DOM_settings_slider_time_interval : document.getElementById("time-inverval-slider"),
+    // Footer 
 
     //Methods
     toggle_DOM_settings_div : function () {
@@ -158,7 +163,7 @@ function updateVista(status) {
     vista.DOM_helping_words_div.innerHTML = model.language.dom.welcome_message;
     vista.DOM_settings_helping_words_title.textContent = model.language.dom.number_of_helping_words;
     if(status == "pause"){
-        vista.DOM_principal_word.innerHTML = "Pauza";
+        vista.DOM_principal_word.innerHTML = model.language.dom.pause;
         // De adaugat scris cand sunt in pauza
     }
 }
@@ -187,19 +192,39 @@ vista.DOM_settings_slider_time_interval.addEventListener("change", ()=> {
 document.onkeydown = function checkKey(e) {
 
     e = e || window.event;
-    console.log(e.keyCode)
-    if (e.keyCode == '38') {
-        // up arrow
-        
+    if (e.keyCode == '32' ) {
+        //space
+        vista.toggle_playstop_button("pause");
     }
-    else if (e.keyCode == '40') {
-        // down arrow
+    else if (e.keyCode == '82'  && controlador.app_in_pause == false) {
+        if(controlador.app_in_pause == true){
+            vista.toggle_playstop_button("pause");
+        }
+        vista.refresh();
     }
-    else if (e.keyCode == '37') {
-       // left arrow
+    else if (e.keyCode == '70' && controlador.app_in_pause == false) {
+        vista.DOM_spell_letters_div.innerHTML = "";
+        vista.toggle_playstop_button("reset");
+        // For each letter
+        controlador.words_to_show_list[0].toLowerCase().split("").forEach( (e,i) => {
+            vista.DOM_spell_letters_div.innerHTML += `<span class="spellLetter" id="spellLetter-${i}">${model.language.letters[e]}</span>`;
+           setTimeout( () => {
+                document.getElementById(`spellLetter-${i}`).style.color = "#fff";
+                document.getElementById(`spellLetter-${i}`).style.background = "#2E4BDB";
+            // At the last word add 500 ms until i disable pause and hide the div
+                setTimeout( () => {
+                    document.getElementById(`spellLetter-${i}`).style.background = "#eaeaea";
+                    document.getElementById(`spellLetter-${i}`).style.color = "#1E1E24";
+                    if(i ==  controlador.words_to_show_list[0].length - 1){
+                        vista.DOM_spell_letters_div.innerHTML = "";
+                        vista.toggle_playstop_button("pause");
+                    }
+                } , 500)
+           }, i * 500);
+        })
     }
-    else if (e.keyCode == '39') {
-       // right arrow
+    else if (e.keyCode == '73') {
+       // letter i
     }
 
 }
@@ -214,20 +239,27 @@ let controlador = {
         return model.language.words.randomKey().random(controlador.user_numberOfHelpingWord_setting + 1);
     },
 
-    set_image_random : function () {
+    set_image_random : function (keyword = controlador.words_to_show_list[0]) {
             var xhr= new XMLHttpRequest();
-            xhr.open("GET",GetFlickApi(controlador.words_to_show_list[0]),true);   // 
+            xhr.open("GET",GetFlickApi(keyword),true);   // 
             xhr.send();
             xhr.onreadystatechange=function(){
                 if(xhr.readyState==4 && xhr.status==200) {
                     var myArray = JSON.parse(xhr.responseText);
-                    var n = Math.floor(Math.random() * myArray.photos.photo.length );
-                    var farm_id = myArray.photos.photo[n].farm
-                    var server_id = myArray.photos.photo[n].server
-                    var id = myArray.photos.photo[n].id
-                    var secret = myArray.photos.photo[n].secret
-                    vista.DOM_right_div.style.background = `#1E1E24 url("https://farm${farm_id}.staticflickr.com/${server_id}/${id}_${secret}.jpg")`;
-                } 
+                    vista.DOM_right_div.style.background = "";
+                    if(myArray.photos.photo.length != 0){
+                        var n = Math.floor(Math.random() * myArray.photos.photo.length );
+                        var farm_id = myArray.photos.photo[n].farm
+                        var server_id = myArray.photos.photo[n].server
+                        var id = myArray.photos.photo[n].id
+                        var secret = myArray.photos.photo[n].secret
+                        vista.DOM_right_div.style.backgroundImage = `url("https://farm${farm_id}.staticflickr.com/${server_id}/${id}_${secret}.jpg")`;    
+                    }
+                    else {
+                        vista.DOM_right_div.style.background = `#1E1E24 url(./images/imagenotfound.png) 92% 10vh  / 30% no-repeat fixed`;
+
+                    }
+} 
             };
     }
 
@@ -243,6 +275,7 @@ function init(){
     //Generate the first word list
     controlador.words_to_show_list = controlador.generate_random_words_list();
     vista.toggle_playstop_button("reset");
+    controlador.set_image_random(`art`);
     updateVista();
 }
 
@@ -265,6 +298,7 @@ var clock = setInterval(() => {
         second_Counter_1 = 0;
         vista.refresh();
     }
+
     //After one second
     else if(second_Counter_1 / 10 == 1){
         second_Counter_1 = 0;

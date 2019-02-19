@@ -11,7 +11,7 @@
 </head>
 <body>
     <div class="app">
-        <header>
+        <header id="header">
             <a id="logo" href="./index.html"><img src="./images/logo.svg" alt="Logo Nexfloo"></a>
 
             <ul>
@@ -36,6 +36,7 @@
 
             <div class="leftContent">
                 <h1 id="principal-word">Welcome to <b>Nexfloo</b></h1>
+                <div class="spell"></div>
                 <h4 id="helping-words">A fast, <b>powerfull</b> and easy to use web app.<br>Made by Ifosup Students</h6>
                 <button class="call-to-action">Fork it on github</button>
                 <div class="playstop">
@@ -43,18 +44,22 @@
                 </div>
 
                 <div id="timecontainer"></div>
+
+                <footer> <span class="circle"></span> Made by <a href="https://www.oliuradu.com">Oliu Radu</a> </footer>
             </div>
             
-            <div class="rigthContent">
-                <div id="settingsDiv" class="hide">
+            <div id="settingsDiv" class="hide">
 
-                        <h2 id="numberOfWord">Number of words</h2><output id="helpingslider">5</output>
-                        <input class="slider" type="range" min="0" max="15" value="5" class="slider" onchange="helpingslider.value=value" id="helping-words-slider">
+                <h2 id="numberOfWord">Number of words</h2><output id="helpingslider">5</output>
+                <input class="slider" type="range" min="0" max="15" value="5" class="slider" onchange="helpingslider.value=value" id="helping-words-slider">
 
-                        <h2 id="timeInterval">Time interval (seconds)</h2><output id="timeslider">10</output>
-                        <input class="slider" type="range" min="0" max="60" value="10" class="slider" onchange="timeslider.value=value" id="time-inverval-slider">
-                    
-                </div>
+                <h2 id="timeInterval">Time interval (seconds)</h2><output id="timeslider">10</output>
+                <input class="slider" type="range" min="0" max="60" value="10" class="slider" onchange="timeslider.value=value" id="time-inverval-slider">
+        
+            </div>
+
+            <div class="rigthContent overlay">
+               
             </div>
 
         </div>

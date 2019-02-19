@@ -7,7 +7,7 @@
 }
 
 body, html {
-  background: #f2f2f2;
+  background: #fff;
   font-family: 'Nunito', sans-serif;
 }
 
@@ -16,7 +16,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .app header {
-  padding: 1em 2em;
+  -webkit-transition: 1s;
+  transition: 1s;
+  padding: 1em 3em;
   background: #fff;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -27,6 +29,7 @@ h1, h2, h3, h4, h5, h6 {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  outline: 15px solid #eaeaea;
 }
 
 .app header #logo {
@@ -105,6 +108,42 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
 }
 
+.app .content .leftContent .spellLetter {
+  padding: 2px 15px;
+  border-radius: 33px;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  color: #1E1E24;
+  margin: 10em 0em;
+  background: #eaeaea;
+}
+
+.app .content .leftContent footer {
+  position: absolute;
+  bottom: 0px;
+  width: 110%;
+  outline: 15px solid #eaeaea;
+  background: #fff;
+  left: 0;
+  padding: 0.5em 2em;
+}
+
+.app .content .leftContent footer .circle {
+  height: 25px;
+  background: #aaa;
+  width: 25px;
+  float: left;
+  display: block;
+  margin-right: 1em;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  border-radius: 50%;
+}
+
+.app .content .leftContent footer a {
+  color: #1E1E24;
+}
+
 .app .content .leftContent .helping-word {
   padding: 2px 10px;
   background: #1E1E24;
@@ -133,10 +172,10 @@ h1, h2, h3, h4, h5, h6 {
   width: 200px;
   height: 100px;
   position: absolute;
-  -webkit-transform: rotate(-90deg);
-          transform: rotate(-90deg);
+  -webkit-transform: rotate(-86deg);
+          transform: rotate(-86deg);
   top: calc(50% - 2em - 18px);
-  left: calc(100% - 170px);
+  left: calc(100% - 153px);
 }
 
 .app .content .leftContent #timecontainer svg {
@@ -146,7 +185,7 @@ h1, h2, h3, h4, h5, h6 {
 .app .content .leftContent .playstop {
   z-index: 11;
   position: absolute;
-  background: #2E4BDB;
+  background: #1E1E24;
   top: calc(50% - 2em);
   height: 100px;
   border-radius: 50%;
@@ -154,15 +193,15 @@ h1, h2, h3, h4, h5, h6 {
   left: calc(100% - 45px);
   -webkit-transition: 0.3s;
   transition: 0.3s;
-  -webkit-box-shadow: 0px 0px 51px -5px #2e4bdb;
-          box-shadow: 0px 0px 51px -5px #2e4bdb;
+  -webkit-box-shadow: 0px 0px 51px -5px #1E1E24;
+          box-shadow: 0px 0px 51px -5px #1E1E24;
 }
 
 .app .content .leftContent .playstop:hover {
   -webkit-transform: scale(1.1);
           transform: scale(1.1);
-  -webkit-box-shadow: 0px 0px 51px -10px #2e4bdb;
-          box-shadow: 0px 0px 51px -10px #2e4bdb;
+  -webkit-box-shadow: 0px 0px 51px -10px #black;
+          box-shadow: 0px 0px 51px -10px #black;
 }
 
 .app .content .leftContent .playstop img {
@@ -176,23 +215,35 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: 1em;
 }
 
-.app .content .rigthContent {
-  background: #1E1E24;
-  width: 40%;
+.app .content .overlay:before {
+  position: absolute;
+  content: " ";
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  -webkit-clip-path: ellipse(66% 99% at 68% 63%);
+  clip-path: ellipse(66% 99% at 68% 63%);
 }
 
-.app .content .rigthContent #settingsDiv {
+.app .content #settingsDiv {
+  position: absolute;
   background: #1E1E24;
-  padding: 2em;
+  padding: 5em 50% 2em 2em;
+  height: calc(100vh - 4em - 9px);
+  width: 100%;
 }
 
-.app .content .rigthContent #settingsDiv h2 {
+.app .content #settingsDiv h2 {
   color: #fff;
   margin-bottom: 1em;
   display: inline-block;
 }
 
-.app .content .rigthContent #settingsDiv output {
+.app .content #settingsDiv output {
   background: #c74949;
   color: #fff;
   padding: 0px 25px;
@@ -201,7 +252,7 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 33px;
 }
 
-.app .content .rigthContent #settingsDiv .slider {
+.app .content #settingsDiv .slider {
   -webkit-appearance: none;
   width: 100%;
   height: 2px;
@@ -215,7 +266,7 @@ h1, h2, h3, h4, h5, h6 {
   transition: opacity .2s;
 }
 
-.app .content .rigthContent #settingsDiv .slider::-webkit-slider-thumb {
+.app .content #settingsDiv .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
   width: 25px;
@@ -227,18 +278,28 @@ h1, h2, h3, h4, h5, h6 {
   cursor: pointer;
 }
 
-.app .content .rigthContent #settingsDiv .slider::-webkit-slider-thumb:active {
+.app .content #settingsDiv .slider::-webkit-slider-thumb:active {
   -webkit-appearance: none;
   -webkit-transform: scale(1.3);
           transform: scale(1.3);
 }
 
-.app .content .rigthContent #settingsDiv .slider::-moz-range-thumb {
+.app .content #settingsDiv .slider::-moz-range-thumb {
   width: 25px;
   height: 25px;
   border-radius: 50%;
   background: #2E4BDB;
   cursor: pointer;
+}
+
+.app .content .rigthContent {
+  background: #1E1E24;
+  position: relative;
+  width: 40%;
+  background-color: #1E1E24;
+  background-size: cover;
+  -webkit-clip-path: ellipse(66% 99% at 68% 63%);
+  clip-path: ellipse(66% 99% at 68% 63%);
 }
 
 .app a {
