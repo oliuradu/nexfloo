@@ -6,6 +6,9 @@
         "pause" : "Pausa",
         "number_of_helping_words" : "Numero de palabras ayudantes"
     },
+    "letters" : {
+
+    },
     "words" : {
         "ar" : ["Cantar", "Gozar", "Bailar","Cobrar","Saltar"],
         "er" : ["Comer", "Tener", "Perder","Ser","Computer"],

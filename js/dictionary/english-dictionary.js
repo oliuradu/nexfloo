@@ -34,8 +34,8 @@
         "z" : "zed"
     },
     "words" : {
-        "ar" : ["ENZatar", "ENTatar", "ENMolar","ENTelar","ENFar"],
-        "er" : ["ENZater", "ENTater", "ENMoler","ENTeler","ENFer"]
+        "oy" : ["Boy", "Toy", "Enjoy","Bullyboy","Joy"],
+        "er" : ["Salesman", "Superman", "Horseman","Waterman","Man"]
     }
 
 }

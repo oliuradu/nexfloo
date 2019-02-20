@@ -6,6 +6,9 @@
         "pause" : "Pause",        
         "number_of_helping_words" : "Nombre de mots aidants"
     },
+    "letters" : {
+
+    },
     "words" : {
         "ar" : ["FRZatar", "FRTatar", "FRMolar","FRTelar","FRFar"],
         "er" : ["FRZater", "FRTater", "FRMoler","FRTeler","FRFer"]

@@ -207,20 +207,25 @@ document.onkeydown = function checkKey(e) {
         vista.toggle_playstop_button("reset");
         // For each letter
         controlador.words_to_show_list[0].toLowerCase().split("").forEach( (e,i) => {
-            vista.DOM_spell_letters_div.innerHTML += `<span class="spellLetter" id="spellLetter-${i}">${model.language.letters[e]}</span>`;
-           setTimeout( () => {
-                document.getElementById(`spellLetter-${i}`).style.color = "#fff";
-                document.getElementById(`spellLetter-${i}`).style.background = "#2E4BDB";
-            // At the last word add 500 ms until i disable pause and hide the div
+            if(model.language.letters[e] == undefined){
+                vista.DOM_spell_letters_div.innerHTML += `<span class="spellLetter" id="spellLetter-${i}">${e}</span>`;
+            }
+            else{
+                vista.DOM_spell_letters_div.innerHTML += `<span class="spellLetter" id="spellLetter-${i}">${model.language.letters[e]}</span>`;
+            }
                 setTimeout( () => {
-                    document.getElementById(`spellLetter-${i}`).style.background = "#eaeaea";
-                    document.getElementById(`spellLetter-${i}`).style.color = "#1E1E24";
-                    if(i ==  controlador.words_to_show_list[0].length - 1){
-                        vista.DOM_spell_letters_div.innerHTML = "";
-                        vista.toggle_playstop_button("pause");
-                    }
-                } , 500)
-           }, i * 500);
+                     document.getElementById(`spellLetter-${i}`).style.color = "#fff";
+                     document.getElementById(`spellLetter-${i}`).style.background = "#2E4BDB";
+                 // At the last word add 500 ms until i disable pause and hide the div
+                     setTimeout( () => {
+                         document.getElementById(`spellLetter-${i}`).style.background = "#eaeaea";
+                         document.getElementById(`spellLetter-${i}`).style.color = "#1E1E24";
+                         if(i ==  controlador.words_to_show_list[0].length - 1){
+                             vista.DOM_spell_letters_div.innerHTML = "";
+                             vista.toggle_playstop_button("pause");
+                         }
+                     } , 500)
+                }, i * 500);
         })
     }
     else if (e.keyCode == '73') {
